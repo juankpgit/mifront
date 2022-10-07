@@ -1,14 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {allClientes} from '../funciones/funciones'
 
 const Clientes = () => {
+  const [clientes, setClientes] = useState(null)
 
   useEffect( ()=> {
-    allClientes()
+    allClientes(setClientes)
   },[])
 
   return (
-    <div>Clientes</div>
+    <>
+      <h1>Clientes</h1>
+      { clientes != null ? (
+        clientes.map(cliente => (
+          <div key={cliente.id}>
+            <a href={`/cliente/${cliente.id}`}>{cliente.nombre}</a>
+          </div>
+        ))
+      ) : ('No hay datos')}
+    </>
   )
 }
 
